@@ -1,4 +1,4 @@
-let randomNumber = function(from, to) {
+const randomNumber = function(from, to) {
   let result;
   if (from<0 || to<0) {
     result = console.log('Диапазон должен быть положительным');
@@ -8,7 +8,17 @@ let randomNumber = function(from, to) {
   } else {
     result = console.log(Math.floor(Math.random() * (to - from) + from));
   }
-  return result
+  return result;
 };
 
-randomNumber(10, 5)
+randomNumber(10, 5);
+
+const checkLength = function(checkedString, maxLength) {
+  if (checkedString.length < maxLength) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+checkLength('lalala', 50);
