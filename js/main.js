@@ -11,5 +11,8 @@ const randomNumber = function(from, to) {
   return result;
 };
 
+console.log(randomNumber(2, 50))
+
 const checkLength = (checkedString, maxLength) => checkedString.length <= maxLength;
 
+console.log(checkLength("lalala", 50))
