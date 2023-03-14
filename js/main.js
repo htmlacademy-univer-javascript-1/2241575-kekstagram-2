@@ -34,7 +34,7 @@ const randomUniqNumber = function(from, to) {
   return function () {
     let currentValue = randomNumber(from, to);
     if (previousValues.length >= (to - from + 1)) {
-      console.error('Перебраны все числа из диапазона от ' + from + ' до ' + to);
+      console.error(`Перебраны все числа из диапазона от ${  from  } до ${  to}`);
       return null;
     }
     while (previousValues.includes(currentValue)) {
