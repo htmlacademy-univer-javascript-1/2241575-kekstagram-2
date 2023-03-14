@@ -1,4 +1,4 @@
-import {randomNumber, randomUniqNumber} from 'js/util.js';
+import {randomNumber, randomUniqNumber} from './util.js';
 
 const messageList = [
   'Всё отлично!',
