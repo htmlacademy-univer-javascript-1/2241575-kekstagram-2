@@ -29,14 +29,33 @@ const randomNumber = function(from, to) {
   return Math.floor(result);
 };
 
+const randomUniqNumber = function(from, to) {
+  const previousValues = [];
+  return function () {
+    let currentValue = randomNumber(from, to);
+    if (previousValues.length >= (to - from + 1)) {
+      console.error('Перебраны все числа из диапазона от ' + from + ' до ' + to);
+      return null;
+    }
+    while (previousValues.includes(currentValue)) {
+      currentValue = randomNumber(from, to);
+    }
+    previousValues.push(currentValue);
+    return currentValue;
+  };
+};
+
+const generateId = randomUniqNumber(1, 25);
+const generatePhotoId = randomUniqNumber(1, 25);
+const generateCommentId = randomUniqNumber(1, 25);
 //const checkLength = (checkedString, maxLength) => checkedString.length <= maxLength;
 
 const getRandomArrayElement = (list) => list[randomNumber(1, list.length - 1)];
 
 const createComment = function() {
   return {
-    id: randomNumber(1, 25),
-    avatar: `img/avatar-${randomNumber(1, 25)}.svg`,
+    id: generateCommentId(),
+    avatar: `img/avatar-${randomNumber(1, 6)}.svg`,
     message: getRandomArrayElement(messageList),
     name: getRandomArrayElement(nameList),
   };
@@ -44,8 +63,8 @@ const createComment = function() {
 
 const createDescriptionOfPhoto = function() {
   return {
-    id: randomNumber(1, 25),
-    url: `photos/${randomNumber(1, 25)}.jpg`,
+    id: generateId(),
+    url: `photos/${generatePhotoId()}.jpg`,
     description: 'Описание картинки',
     likes: randomNumber(15, 200),
     comments: [createComment()],
