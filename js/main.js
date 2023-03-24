@@ -1,1 +1,1 @@
-import * as hi from './thumbnails.js';
+import {picturesModule} from './thumbnails.js';

@@ -1,4 +1,4 @@
-import {randomNumber, randomUniqNumber, samples} from './util.js';
+import {randomNumber, randomUniqNumber} from './util.js';
 
 const messageList = [
   'Всё отлично!',
@@ -34,7 +34,7 @@ const createComment = function() {
   return {
     id: generateCommentId(),
     avatar: `img/avatar-${randomNumber(1, 6)}.svg`,
-    message: samples(messageList, 6),
+    message: getRandomArrayElement(messageList),
     name: getRandomArrayElement(nameList),
   };
 };
@@ -49,6 +49,4 @@ const createDescriptionOfPhoto = function() {
   };
 };
 
-const descriptionsOfPhoto = Array.from({length: 25}, createDescriptionOfPhoto);
-
-export {descriptionsOfPhoto};
+export {createDescriptionOfPhoto};

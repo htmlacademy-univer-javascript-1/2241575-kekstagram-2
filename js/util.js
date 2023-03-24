@@ -21,11 +21,6 @@ const randomUniqNumber = function(from, to) {
   };
 };
 
-function samples(items, number){
-  items.sort(() => 0.5 - Math.random());
-  return items.slice(0, randomNumber(1, number));
-}
-
 const checkLength = (checkedString, maxLength) => checkedString.length <= maxLength;
 
-export {randomNumber, randomUniqNumber, samples};
+export {randomNumber, randomUniqNumber};
