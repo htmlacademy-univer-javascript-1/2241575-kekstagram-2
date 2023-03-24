@@ -21,6 +21,11 @@ const randomUniqNumber = function(from, to) {
   };
 };
 
-//const checkLength = (checkedString, maxLength) => checkedString.length <= maxLength;
+function samples(items, number){
+  items.sort(() => 0.5 - Math.random());
+  return items.slice(0, randomNumber(1, number));
+}
 
-export {randomNumber, randomUniqNumber};
+const checkLength = (checkedString, maxLength) => checkedString.length <= maxLength;
+
+export {randomNumber, randomUniqNumber, samples};

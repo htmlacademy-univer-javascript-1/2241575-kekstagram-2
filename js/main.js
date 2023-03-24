@@ -1,3 +1,1 @@
-import {descriptionsOfPhoto} from './data.js';
-
-console.log(descriptionsOfPhoto);
+import * as hi from './thumbnails.js';
