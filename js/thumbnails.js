@@ -18,6 +18,5 @@ descriptionsOfPhotos.forEach((photo) => {
 });
 
 picturesModule.append(photosFragment);
-console.log(descriptionsOfPhotos);
 
 export{picturesModule};
