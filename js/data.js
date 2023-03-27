@@ -40,7 +40,7 @@ const createComment = function() {
 const createDescriptionOfPhoto = function() {
   return {
     id: generateId(),
-    url: `photos/${generatePhotoId()}.jpg`,
+    url: `./photos/${generatePhotoId()}.jpg`,
     description: 'Описание картинки',
     likes: randomNumber(15, 200),
     comments: Array.from({length: randomNumber(1, 6)}, createComment),
