@@ -1,3 +1,9 @@
+/**
+ * Генерация случайного числа из диапазона
+ * @param {int} from - начальное число диапазона
+ * @param {int} to - последнее число диапазона
+ * @returns {int} - случайное число
+ */
 const randomNumber = function(from, to) {
   const lower = Math.ceil(Math.min(Math.abs(from), Math.abs(to)));
   const upper = Math.floor(Math.max(Math.abs(from), Math.abs(to)));
@@ -5,6 +11,12 @@ const randomNumber = function(from, to) {
   return Math.floor(result);
 };
 
+/**
+ * Генерация уникальных случайных чисел из диапазона
+ * @param {int} from - начальное число диапазона
+ * @param {int} to - последнее число диапазона
+ * @returns {int}- случайное число
+ */
 const randomUniqNumber = function(from, to) {
   const previousValues = [];
   return function () {
@@ -21,6 +33,19 @@ const randomUniqNumber = function(from, to) {
   };
 };
 
+/**
+ * Проверка строки на максимальную длину
+ * @param {*} checkedString - строка
+ * @param {*} maxLength - максимальная длина
+ * @returns {boolean} - соответствие строки на максимальную длину
+ */
 const checkLength = (checkedString, maxLength) => checkedString.length <= maxLength;
 
-export {randomNumber, randomUniqNumber};
+/**
+ * Генерация случайного элемента списка
+ * @param {object} list - список
+ * @returns - случайный элемент списка
+ */
+const getRandomArrayElement = (list) => list[randomNumber(1, list.length - 1)];
+
+export {randomNumber, randomUniqNumber, getRandomArrayElement};

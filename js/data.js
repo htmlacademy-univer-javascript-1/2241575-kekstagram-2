@@ -1,4 +1,4 @@
-import {randomNumber, randomUniqNumber} from './util.js';
+import {randomNumber, randomUniqNumber, getRandomArrayElement} from './util.js';
 
 const messageList = [
   'Всё отлично!',
@@ -27,8 +27,6 @@ const nameList = [
 const generateId = randomUniqNumber(1, 25);
 const generatePhotoId = randomUniqNumber(1, 25);
 const generateCommentId = randomUniqNumber(1, 100);
-
-const getRandomArrayElement = (list) => list[randomNumber(1, list.length - 1)];
 
 const createComment = function() {
   return {
