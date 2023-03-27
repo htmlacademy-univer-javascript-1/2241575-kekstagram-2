@@ -15,6 +15,7 @@ picturesModule.addEventListener ('click', (evt) => {
     bigPicImg.src = evt.target.src;
     likesCount.textContent = pictureInfo.querySelector('.picture__likes').textContent;
     commentsCount.textContent = pictureInfo.querySelector('.picture__comments').textContent;
+
     /* Все комментарии и описание фото вывела в один объект fullPhotoInfo
     (ключ - ссылка на фото, значение - список комментариев), чтобы данные не потерялись */
     fullPhotoInfo[evt.target.src].forEach((commentDescr) => {
@@ -26,6 +27,7 @@ picturesModule.addEventListener ('click', (evt) => {
       comment.querySelector('p').textContent = commentDescr.message;
       descriptionOfPhoto.textContent = fullPhotoInfo['description'];
     });
+
     bigPicture.querySelector('.social__comment-count').classList.add('hidden');
     bigPicture.querySelector('.comments-loader').classList.add('hidden');
     document.body.classList.add('modal-open');
