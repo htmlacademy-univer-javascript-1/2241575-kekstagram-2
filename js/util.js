@@ -21,6 +21,6 @@ const randomUniqNumber = function(from, to) {
   };
 };
 
-//const checkLength = (checkedString, maxLength) => checkedString.length <= maxLength;
+const checkLength = (checkedString, maxLength) => checkedString.length <= maxLength;
 
 export {randomNumber, randomUniqNumber};
