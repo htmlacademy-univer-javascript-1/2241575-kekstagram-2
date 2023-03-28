@@ -1,1 +1,1 @@
-import * as a from './full-size-img.js';
+import './full-size-img.js';

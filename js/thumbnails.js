@@ -16,7 +16,7 @@ descriptionsOfPhotos.forEach((photo) => {
   numberOfComments.textContent = photo.comments.length;
   numberOfLikes.textContent = photo.likes;
   fullPhotoInfo[thumbnailImg.src] = photo.comments;
-  fullPhotoInfo['description'] = photo.description;
+  fullPhotoInfo[`${thumbnailImg.src} description`] = photo.description;
   photosFragment.append(thumbnail);
 });
 

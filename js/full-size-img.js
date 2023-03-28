@@ -9,6 +9,8 @@ const commentTemplate = document.querySelector('#comment').content.querySelector
 const commentsOfPhoto = bigPicture.querySelector('.social__comments');
 const descriptionOfPhoto = bigPicture.querySelector('.social__caption');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
+bigPicture.querySelector('.social__comment-count').classList.add('hidden');
+bigPicture.querySelector('.comments-loader').classList.add('hidden');
 
 picturesModule.addEventListener ('click', (evt) => {
   if (evt.target.nodeName === 'IMG') {
@@ -26,11 +28,9 @@ picturesModule.addEventListener ('click', (evt) => {
       avatar.alt = commentDescr.name;
       commentsOfPhoto.append(comment);
       comment.querySelector('p').textContent = commentDescr.message;
-      descriptionOfPhoto.textContent = fullPhotoInfo['description'];
+      descriptionOfPhoto.textContent = fullPhotoInfo[`${evt.target.src} description`];
     });
 
-    bigPicture.querySelector('.social__comment-count').classList.add('hidden');
-    bigPicture.querySelector('.comments-loader').classList.add('hidden');
     document.body.classList.add('modal-open');
     bigPicture.classList.remove('hidden');
   }
@@ -39,11 +39,13 @@ picturesModule.addEventListener ('click', (evt) => {
 closeButton.addEventListener ('click', () => {
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  commentsOfPhoto.innerHTML = '';
 });
 
 document.addEventListener('keydown', (evt)=> {
   if (isEscapeKey(evt)) {
     bigPicture.classList.add('hidden');
     document.body.classList.remove('modal-open');
+    commentsOfPhoto.innerHTML = '';
   }
 });
