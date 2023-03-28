@@ -1,4 +1,5 @@
 import {picturesModule, fullPhotoInfo} from './thumbnails.js';
+import {isEscapeKey} from './util.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPicImg = bigPicture.querySelector('.big-picture__img img');
@@ -41,7 +42,7 @@ closeButton.addEventListener ('click', () => {
 });
 
 document.addEventListener('keydown', (evt)=> {
-  if (evt.keyCode === 27) {
+  if (isEscapeKey(evt)) {
     bigPicture.classList.add('hidden');
     document.body.classList.remove('modal-open');
   }
