@@ -1,4 +1,4 @@
-import {randomNumber, randomUniqNumber, getRandomArrayElement} from './util.js';
+import {randomNumber, randomUniqNumber, getRandomArrayElement} from './mocks.js';
 
 const MESSAGES = [
   'Всё отлично!',
@@ -66,7 +66,7 @@ const createDescriptionOfPhoto = function() {
     url: `./photos/${generatePhotoId()}.jpg`,
     description: getRandomArrayElement(DESCRIPTIONS),
     likes: randomNumber(15, 200),
-    comments: Array.from({length: randomNumber(1, 5)}, createComment),
+    comments: Array.from({length: randomNumber(1, 10)}, createComment),
   };
 };
 

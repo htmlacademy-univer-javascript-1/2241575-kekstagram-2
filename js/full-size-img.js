@@ -1,51 +1,53 @@
-import {picturesModule, fullPhotoInfo} from './thumbnails.js';
 import {isEscapeKey} from './util.js';
 
 const bigPicture = document.querySelector('.big-picture');
-const bigPicImg = bigPicture.querySelector('.big-picture__img img');
-const likesCount = bigPicture.querySelector('.likes-count');
-const commentsCount = bigPicture.querySelector('.comments-count');
 const commentTemplate = document.querySelector('#comment').content.querySelector('li');
 const commentsOfPhoto = bigPicture.querySelector('.social__comments');
-const descriptionOfPhoto = bigPicture.querySelector('.social__caption');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 bigPicture.querySelector('.social__comment-count').classList.add('hidden');
 bigPicture.querySelector('.comments-loader').classList.add('hidden');
 
-picturesModule.addEventListener ('click', (evt) => {
-  if (evt.target.nodeName === 'IMG') {
-    const pictureInfo = evt.target.closest('.picture');
-    bigPicImg.src = evt.target.src;
-    likesCount.textContent = pictureInfo.querySelector('.picture__likes').textContent;
-    commentsCount.textContent = pictureInfo.querySelector('.picture__comments').textContent;
+const createComment = function(commentInfo) {
+  const commentClone = commentTemplate.cloneNode(true);
+  const profilPhoto = commentClone.querySelector('img');
+  profilPhoto.src = commentInfo.avatar;
+  profilPhoto.alt = commentInfo.name;
+  commentClone.querySelector('p').textContent = commentInfo.message;
+  return commentClone;
+};
 
-    /* Все комментарии и описание фото вывела в один объект fullPhotoInfo
-    (ключ - ссылка на фото, значение - список комментариев), чтобы данные не потерялись */
-    fullPhotoInfo[evt.target.src].forEach((commentDescr) => {
-      const comment = commentTemplate.cloneNode(true);
-      const avatar = comment.querySelector('img');
-      avatar.src = commentDescr.avatar;
-      avatar.alt = commentDescr.name;
-      commentsOfPhoto.append(comment);
-      comment.querySelector('p').textContent = commentDescr.message;
-      descriptionOfPhoto.textContent = fullPhotoInfo[`${evt.target.src} description`];
-    });
+const openBigPicture = function() {
+  document.body.classList.add('modal-open');
+  bigPicture.classList.remove('hidden');
+};
 
-    document.body.classList.add('modal-open');
-    bigPicture.classList.remove('hidden');
-  }
-});
-
-closeButton.addEventListener ('click', () => {
-  bigPicture.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-  commentsOfPhoto.innerHTML = '';
-});
-
-document.addEventListener('keydown', (evt)=> {
-  if (isEscapeKey(evt)) {
+const closeBigPicture = function() {
+  closeButton.addEventListener ('click', () => {
     bigPicture.classList.add('hidden');
     document.body.classList.remove('modal-open');
     commentsOfPhoto.innerHTML = '';
-  }
-});
+  });
+
+  document.addEventListener('keydown', (evt)=> {
+    if (isEscapeKey(evt)) {
+      bigPicture.classList.add('hidden');
+      document.body.classList.remove('modal-open');
+      commentsOfPhoto.innerHTML = '';
+    }
+  });
+};
+
+const createBigPhoto = function(thumbnail, likes, comments, description) {
+  bigPicture.querySelector('.big-picture__img img').src = thumbnail.querySelector('img').src;
+  bigPicture.querySelector('.social__caption').textContent = description;
+  bigPicture.querySelector('.likes-count').textContent = likes;
+  bigPicture.querySelector('.comments-count').textContent = thumbnail.querySelector('.picture__comments').textContent;
+  comments.forEach((comment) => {
+    const newComment = createComment(comment);
+    commentsOfPhoto.append(newComment);
+  });
+  openBigPicture();
+  closeBigPicture();
+};
+
+export {createBigPhoto};
