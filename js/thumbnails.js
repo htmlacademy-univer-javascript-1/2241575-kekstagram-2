@@ -15,7 +15,7 @@ const createThumbnail = function(descriptions) {
     numberOfComments.textContent = photo.comments.length;
     numberOfLikes.textContent = photo.likes;
     photosFragment.append(thumbnail);
-    thumbnailImg.addEventListener('click', (evt) => {
+    thumbnailImg.addEventListener ('click', (evt) => {
       evt.preventDefault();
       createBigPhoto(thumbnail, numberOfLikes.textContent, photo.comments, photo.description);
     });
