@@ -34,9 +34,18 @@ const closeEditingFormMethods = function() {
   });
 };
 
+hashtags.addEventListener('keydown', (evt) => {
+  evt.stopPropagation();
+});
+
+photoComment.addEventListener('keydown', (evt) => {
+  evt.stopPropagation();
+});
+
 formOpenButton.addEventListener('click', openEditingForm);
 closeEditingFormMethods();
 
+/*Валидация формы*/
 const re = /^((#[A-Za-zА-Яа-яЁё0-9]{1,19})\s*)+$/;
 
 const pristine = new Pristine(uploadForm, {
@@ -45,11 +54,39 @@ const pristine = new Pristine(uploadForm, {
   errorTextClass: 'img-upload__field-wrapper__error-text'
 }, true);
 
-const validateHashtags = function() {
+const validateHashtagsValue = function() {
   return re.test(hashtags.value);
 };
 
-pristine.addValidator(hashtags, validateHashtags, 'Что-то не так');
+const validateHashtagsSimilar = function() {
+  const hashtagsList = hashtags.value.split(' ');
+  const newHashtagsList = [];
+
+  hashtagsList.forEach((hashtag) => {
+    newHashtagsList.push(hashtag.toLowerCase());
+  });
+
+  for (let i=1; i <= newHashtagsList.length; i++) {
+    if (newHashtagsList[i] === newHashtagsList[i-1]) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+};
+
+const validateHashtagsMax = function() {
+  const hashtagsList = hashtags.value.split(' ');
+  if (hashtagsList.length > 5) {
+    return false;
+  } else {
+    return true;
+  }
+};
+
+pristine.addValidator(hashtags, validateHashtagsValue, 'Неверно введенный хэш-тег');
+pristine.addValidator(hashtags, validateHashtagsSimilar, 'Вижу одинаковые хэш-теги');
+pristine.addValidator(hashtags, validateHashtagsMax, 'Превышен максимальный лимит хэш-тегов');
 
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
