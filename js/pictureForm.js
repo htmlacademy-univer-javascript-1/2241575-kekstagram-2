@@ -37,7 +37,7 @@ const closeEditingFormMethods = function() {
 formOpenButton.addEventListener('click', openEditingForm);
 closeEditingFormMethods();
 
-const re = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
+const re = /^((#[A-Za-zА-Яа-яЁё0-9]{1,19})\s*)+$/;
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
