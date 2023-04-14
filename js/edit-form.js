@@ -8,13 +8,13 @@ const hashtags = uploadForm.querySelector('.text__hashtags');
 const uploadInput = uploadForm.querySelector('.img-upload__input');
 const photoComment = uploadForm.querySelector('.text__description');
 
-const openEditingForm = function(evt) {
+const openFormSettings = (evt) => {
   evt.preventDefault();
   document.body.classList.add('modal-open');
   editingForm.classList.remove('hidden');
 };
 
-const closeEditingForm = function () {
+const closeEditingForm = () => {
   editingForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
   uploadInput.innerHTML = '';
@@ -22,7 +22,7 @@ const closeEditingForm = function () {
   photoComment.value = '';
 };
 
-const closeEditingFormMethods = function() {
+const addHandlersToCloseForm = () => {
   formCloseButton.addEventListener ('click', () => {
     closeEditingForm();
   });
@@ -34,19 +34,9 @@ const closeEditingFormMethods = function() {
   });
 };
 
-hashtags.addEventListener('keydown', (evt) => {
-  evt.stopPropagation();
-});
-
-photoComment.addEventListener('keydown', (evt) => {
-  evt.stopPropagation();
-});
-
-formOpenButton.addEventListener('click', openEditingForm);
-closeEditingFormMethods();
-
 /*Валидация формы*/
-const re = /^((#[A-Za-zА-Яа-яЁё0-9]{1,19})\s*)+$/;
+const re = /^((#[A-Za-zА-Яа-яЁё0-9]{1,19})\s*|)+$$/;
+const MAX_COMMENT_LENGTH = 5;
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -54,11 +44,9 @@ const pristine = new Pristine(uploadForm, {
   errorTextClass: 'img-upload__field-wrapper__error-text'
 }, true);
 
-const validateHashtagsValue = function() {
-  return re.test(hashtags.value);
-};
+const validateHashtagsValue = () => re.test(hashtags.value);
 
-const validateHashtagsSimilar = function() {
+const validateHashtagsSimilar = () => {
   const hashtagsList = hashtags.value.split(' ');
   const newHashtagsList = [];
 
@@ -66,29 +54,38 @@ const validateHashtagsSimilar = function() {
     newHashtagsList.push(hashtag.toLowerCase());
   });
 
-  for (let i=1; i <= newHashtagsList.length; i++) {
-    if (newHashtagsList[i] === newHashtagsList[i-1]) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+  const unique = Array.from(new Set(newHashtagsList));
+  return (unique.length === newHashtagsList.length);
 };
 
-const validateHashtagsMax = function() {
+const validateHashtagsMax = () => {
   const hashtagsList = hashtags.value.split(' ');
-  if (hashtagsList.length > 5) {
-    return false;
-  } else {
-    return true;
-  }
+  return !((hashtagsList.length > MAX_COMMENT_LENGTH));
 };
 
-pristine.addValidator(hashtags, validateHashtagsValue, 'Неверно введенный хэш-тег');
-pristine.addValidator(hashtags, validateHashtagsSimilar, 'Вижу одинаковые хэш-теги');
-pristine.addValidator(hashtags, validateHashtagsMax, 'Превышен максимальный лимит хэш-тегов');
+const validateForm = () => {
+  pristine.addValidator(hashtags, validateHashtagsValue, 'Неверно введенный хэш-тег');
+  pristine.addValidator(hashtags, validateHashtagsSimilar, 'Вижу одинаковые хэш-теги');
+  pristine.addValidator(hashtags, validateHashtagsMax, 'Превышен максимальный лимит хэш-тегов');
 
-uploadForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
+  uploadForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    pristine.validate();
+  });
+};
+
+const openForm = () => {
+  formOpenButton.addEventListener('click', openFormSettings);
+
+  hashtags.addEventListener('keydown', (evt) => {
+    evt.stopPropagation();
+  });
+  photoComment.addEventListener('keydown', (evt) => {
+    evt.stopPropagation();
+  });
+
+  addHandlersToCloseForm();
+  validateForm();
+};
+
+export{openForm};

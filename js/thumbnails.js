@@ -5,7 +5,7 @@ const picturesModule = document.querySelector('.pictures');
 const photoThumbnailTemplate = document.querySelector('#picture').content.querySelector('a');
 const photosFragment = document.createDocumentFragment();
 
-const createThumbnail = function(descriptions) {
+const createThumbnail = (descriptions) => {
   descriptions.forEach((photo) => {
     const thumbnail = photoThumbnailTemplate.cloneNode(true);
     const numberOfComments = thumbnail.querySelector('.picture__comments');

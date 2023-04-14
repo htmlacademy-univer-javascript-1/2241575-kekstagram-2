@@ -4,7 +4,7 @@
  * @param {int} to - последнее число диапазона
  * @returns {int} - случайное число
  */
-const randomNumber = function(from, to) {
+const randomNumber = (from, to) => {
   const lower = Math.ceil(Math.min(Math.abs(from), Math.abs(to)));
   const upper = Math.floor(Math.max(Math.abs(from), Math.abs(to)));
   const result = Math.random() * (upper - lower + 1) + lower;
@@ -17,7 +17,7 @@ const randomNumber = function(from, to) {
  * @param {int} to - последнее число диапазона
  * @returns {int}- случайное число
  */
-const randomUniqNumber = function(from, to) {
+const randomUniqNumber = (from, to) => {
   const previousValues = [];
   return function () {
     let currentValue = randomNumber(from, to);

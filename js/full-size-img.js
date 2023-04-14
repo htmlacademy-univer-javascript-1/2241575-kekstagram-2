@@ -7,7 +7,7 @@ const bigPictureCloseButton = bigPicture.querySelector('.big-picture__cancel');
 bigPicture.querySelector('.social__comment-count').classList.add('hidden');
 bigPicture.querySelector('.comments-loader').classList.add('hidden');
 
-const createCommentBigPhoto = function(commentInfo) {
+const createCommentBigPhoto = (commentInfo) => {
   const commentClone = commentTemplate.cloneNode(true);
   const profilPhoto = commentClone.querySelector('img');
   profilPhoto.src = commentInfo.avatar;
@@ -16,12 +16,12 @@ const createCommentBigPhoto = function(commentInfo) {
   return commentClone;
 };
 
-const openBigPicture = function() {
+const openBigPicture = () => {
   document.body.classList.add('modal-open');
   bigPicture.classList.remove('hidden');
 };
 
-const closeBigPicture = function() {
+const closeBigPicture = () => {
   bigPictureCloseButton.addEventListener ('click', () => {
     bigPicture.classList.add('hidden');
     document.body.classList.remove('modal-open');
@@ -37,7 +37,7 @@ const closeBigPicture = function() {
   });
 };
 
-const createBigPhoto = function(thumbnail, likes, comments, description) {
+const createBigPhoto = (thumbnail, likes, comments, description) => {
   bigPicture.querySelector('.big-picture__img img').src = thumbnail.querySelector('img').src;
   bigPicture.querySelector('.social__caption').textContent = description;
   bigPicture.querySelector('.likes-count').textContent = likes;
