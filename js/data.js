@@ -47,7 +47,7 @@ const DESCRIPTIONS = [
   'Иногда самое трудное — забыть того, с которым по сути ничего и не было.',
 ];
 
-const generateId = randomUniqNumber(1, 25);
+const generateId =  randomUniqNumber(1, 25);
 const generatePhotoId = randomUniqNumber(1, 25);
 const generateCommentId = randomUniqNumber(1, 200);
 

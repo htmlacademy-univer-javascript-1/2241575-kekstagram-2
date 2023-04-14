@@ -5,7 +5,7 @@ const picturesModule = document.querySelector('.pictures');
 const photoThumbnailTemplate = document.querySelector('#picture').content.querySelector('a');
 const photosFragment = document.createDocumentFragment();
 
-const createThumbnail = function(descriptions) {
+const createThumbnail = (descriptions) => {
   descriptions.forEach((photo) => {
     const thumbnail = photoThumbnailTemplate.cloneNode(true);
     const numberOfComments = thumbnail.querySelector('.picture__comments');
@@ -15,7 +15,7 @@ const createThumbnail = function(descriptions) {
     numberOfComments.textContent = photo.comments.length;
     numberOfLikes.textContent = photo.likes;
     photosFragment.append(thumbnail);
-    thumbnailImg.addEventListener('click', (evt) => {
+    thumbnailImg.addEventListener ('click', (evt) => {
       evt.preventDefault();
       createBigPhoto(thumbnail, numberOfLikes.textContent, photo.comments, photo.description);
     });
