@@ -1,4 +1,5 @@
 import {isEscapeKey} from './util.js';
+import {addHandlersToZoomSettings} from './image-zoom-editor.js';
 
 const formOpenButton = document.querySelector('.img-upload__label');
 const uploadForm = document.querySelector('.img-upload__form');
@@ -87,5 +88,7 @@ const openForm = () => {
   addHandlersToCloseForm();
   validateForm();
 };
+
+addHandlersToZoomSettings();
 
 export{openForm};
