@@ -15,6 +15,7 @@ const openFormSettings = (evt) => {
   document.body.classList.add('modal-open');
   editingForm.classList.remove('hidden');
   slider.style.display = 'none';
+  document.getElementById('effect-none').checked = true;
 };
 
 const closeEditingForm = () => {
