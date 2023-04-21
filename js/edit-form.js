@@ -1,5 +1,6 @@
 import {isEscapeKey} from './util.js';
-import {addHandlersToZoomSettings} from './image-zoom-editor.js';
+import {imgPreview} from './image-zoom-editor.js';
+import {slider} from './image-filter-editor.js';
 
 const formOpenButton = document.querySelector('.img-upload__label');
 const uploadForm = document.querySelector('.img-upload__form');
@@ -13,6 +14,7 @@ const openFormSettings = (evt) => {
   evt.preventDefault();
   document.body.classList.add('modal-open');
   editingForm.classList.remove('hidden');
+  slider.style.display = 'none';
 };
 
 const closeEditingForm = () => {
@@ -21,6 +23,9 @@ const closeEditingForm = () => {
   uploadInput.innerHTML = '';
   hashtags.value = '';
   photoComment.value = '';
+  imgPreview.style.transform = 'scale(1)';
+  imgPreview.classList = ['img-upload__preview'];
+  imgPreview.style.filter = '';
 };
 
 const addHandlersToCloseForm = () => {
@@ -89,6 +94,4 @@ const openForm = () => {
   validateForm();
 };
 
-addHandlersToZoomSettings();
-
-export{openForm};
+export {openForm};
