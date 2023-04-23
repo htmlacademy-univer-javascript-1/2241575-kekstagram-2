@@ -49,7 +49,7 @@ const DESCRIPTIONS = [
 
 const generateId =  randomUniqNumber(1, 25);
 const generatePhotoId = randomUniqNumber(1, 25);
-const generateCommentId = randomUniqNumber(1, 200);
+const generateCommentId = randomUniqNumber(1, 300);
 
 const createComment = function() {
   return {
@@ -66,7 +66,7 @@ const createDescriptionOfPhoto = function() {
     url: `./photos/${generatePhotoId()}.jpg`,
     description: getRandomArrayElement(DESCRIPTIONS),
     likes: randomNumber(15, 200),
-    comments: Array.from({length: randomNumber(1, 10)}, createComment),
+    comments: Array.from({length: randomNumber(1, 30)}, createComment),
   };
 };
 

@@ -1,7 +1,7 @@
 const effectButtons = document.querySelectorAll('.effects__radio');
 const imgPreview = document.querySelector('.img-upload__preview');
-const sliderElement = document.querySelector('.effect-level');
-const valueElement = sliderElement.querySelector('.effect-level__value');
+const sliderElement = document.querySelector('.effect-level__slider');
+const valueElement = document.querySelector('.effect-level__value');
 const slider = document.querySelector('.img-upload__effect-level');
 
 valueElement.value = 100;
