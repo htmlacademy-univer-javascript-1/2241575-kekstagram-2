@@ -73,7 +73,7 @@ const showMessage = (template) => {
         window.removeEventListener('click', windowRemove);
         removeErrorMessage();
       }}
-  };
+  }
 
   document.body.append(message);
   window.addEventListener('click', windowRemove, {once: true});
