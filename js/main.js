@@ -5,4 +5,4 @@ import {createThumbnails} from './thumbnails.js';
 
 getData(createThumbnails);
 openForm();
-addHandlersToZoomSettings();
+addHandlersToZoomSettings()
