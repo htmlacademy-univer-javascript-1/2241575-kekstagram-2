@@ -4,6 +4,7 @@ import {slider} from './image-filter-editor.js';
 import {filterEditor} from './image-filter-editor.js';
 import {sendData} from './api.js';
 
+const MAX_HASHTAG_COUNT = 5;
 const formOpenButton = document.querySelector('.img-upload__label');
 const uploadForm = document.querySelector('.img-upload__form');
 const formCloseButton = uploadForm.querySelector('.img-upload__cancel');
@@ -15,7 +16,7 @@ const errorTemplate = document.querySelector('#error').content.querySelector('se
 const successTemplate = document.querySelector('#success').content.querySelector('section');
 const submitButton = document.querySelector('.img-upload__submit');
 
-const openFormSettings = (evt) => {
+const openFormSettingsHundler = (evt) => {
   evt.preventDefault();
   document.body.classList.add('modal-open');
   editingForm.classList.remove('hidden');
@@ -48,12 +49,11 @@ const addHandlersToCloseForm = () => {
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
-  submitButton.textContent = 'Отправляю...';
 };
 
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
-  submitButton.textContent = 'Сохранить';
+  submitButton.textContent = 'Опубликовать';
 };
 
 const showMessage = (template) => {
@@ -62,21 +62,21 @@ const showMessage = (template) => {
     document.body.removeChild(message);
   };
 
-  const windowRemove = () => {
+  const windowRemoveHundler = () => {
     removeErrorMessage();
-    document.removeEventListener('keydown', escRemove);
+    document.removeEventListener('keydown', escRemoveHundler);
   };
 
-  function escRemove(evt) {
+  function escRemoveHundler(evt) {
     if (message.parentNode) {
       if (isEscapeKey(evt)) {
-        window.removeEventListener('click', windowRemove);
+        window.removeEventListener('click', windowRemoveHundler);
         removeErrorMessage();
       }}
   }
 
   document.body.append(message);
-  window.addEventListener('click', windowRemove, {once: true});
+  window.addEventListener('click', windowRemoveHundler, {once: true});
 
   message.querySelector('div').addEventListener('click', (evt) => {
     evt.stopPropagation();
@@ -84,20 +84,20 @@ const showMessage = (template) => {
 
   message.querySelector('.error__button').addEventListener('click', () => {
     removeErrorMessage();
-    window.removeEventListener('click', windowRemove);
-    document.removeEventListener('keydown', escRemove);
+    window.removeEventListener('click', windowRemoveHundler);
+    document.removeEventListener('keydown', escRemoveHundler);
   });
 
-  document.addEventListener('keydown', escRemove, {once: true});
+  document.addEventListener('keydown', escRemoveHundler, {once: true});
   unblockSubmitButton();
 };
 
-const closeSuccesForm = () => {
+const showSuccesForm = () => {
   showMessage(successTemplate);
   closeEditingForm();
 };
 
-const closeErrorForm = () => {
+const showErrorForm = () => {
   editingForm.classList.add('hidden');
   document.body.classList.remove('modal-open');
   showMessage(errorTemplate);
@@ -105,7 +105,6 @@ const closeErrorForm = () => {
 
 /*Валидация формы*/
 const re = /^((#[A-Za-zА-Яа-яЁё0-9]{1,19})\s*|)+$$/;
-const MAX_HASHTAG_COUNT = 5;
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
@@ -143,13 +142,13 @@ const setUserFormSubmit = () => {
     if (isValid) {
       blockSubmitButton();
       const formData = new FormData(evt.target);
-      sendData(closeSuccesForm, closeErrorForm, formData);
+      sendData(showSuccesForm, showErrorForm, formData);
     }
   });
 };
 
 const openForm = () => {
-  formOpenButton.addEventListener('click', openFormSettings);
+  formOpenButton.addEventListener('click', openFormSettingsHundler);
 
   hashtags.addEventListener('keydown', (evt) => {
     evt.stopPropagation();
