@@ -21,6 +21,7 @@ const createThumbnails = (descriptions) => {
     });
   });
   picturesModule.append(photosFragment);
+  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 };
 
 export{createThumbnails};

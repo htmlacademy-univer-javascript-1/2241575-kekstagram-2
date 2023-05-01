@@ -40,6 +40,7 @@ const filterOptions = (filterName, filterInfo) => {
 
 
 const filterEditor = () => {
+  slider.style.display = 'none';
   noUiSlider.create(sliderElement, {
     range: {
       min: 0,
